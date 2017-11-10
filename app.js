@@ -12,18 +12,77 @@ $(() => {
       this.jumping = false;
       this.falling = false;
       this.offgrass = false;
+      this.offgrassleft = false;
+      this.offgrassright = false;
       this.wpress=false;
       this.apress=false;
       this.spress=false;
       this.dpress=false;
-      this.x =0;
+      this.choice=2;
+      this.x=0;
+      this.y=0;
       this.$player = $("<div>").addClass("player");
       //begin game interval
-
+      // game interval determines what moves a player/ai takes
       this.game =setInterval(() => {
-        //if player is an ai
+        //ai section, only active if this.ai=true
         if (this.ai) {
-          console.log("Im An AI");
+          //ai self preservation, ai still may fall due to .stop()
+          //feature, not a bug
+          if (this.offgrassleft) {
+            this.wpress=true;
+            this.apress=false;
+            this.dpress=true;
+          }
+          if (this.offgrassright) {
+            this.wpress=true;
+            this.apress=true;
+            this.dpress=false;
+          }
+          //end ai self preservation
+          this.y++;
+          //ai self determination
+          if (this.y>50) {
+            this.$player.stop();
+            this.choices=["right","left","jump"];
+            this.choice = Math.floor(Math.random()*3);
+            console.log(this.choices[this.choice]);
+            //ai jump
+            if (this.choices[this.choice]=="jump") {
+              if (this.wpress) {
+                this.wpress=false;
+              }
+              else {
+                this.wpress=true;
+              }
+            }
+            //end ai jump
+            //ai move right
+            if (this.choices[this.choice]=="right") {
+              if (this.offgrassright) {
+
+              }
+              else {
+                this.dpress=true;
+                this.apress=false;
+              }
+
+            }
+            //end ai move right
+            //ai move left
+            if (this.choices[this.choice]=="left") {
+              if (this.offgrassright) {
+              }
+              else {
+                this.apress=true;
+                this.dpress=false;
+              }
+            }
+            //end ai move left
+            this.y=0;
+          }
+          //end ai self determination
+
         }
         //end ai
         //wpress
@@ -37,17 +96,21 @@ $(() => {
         }
         //end wpress
         //grass gravity player falls if they jump off the grass
+        //fall left
         if ($grass.position().left-450>this.$player.position().left+25) {
           this.playerdown();
-          this.offgrass=true;
+          this.offgrassleft=true;
         }
+        //fall right
         if ($grass.position().left+450<this.$player.position().left-25) {
           this.playerdown();
 
-          this.offgrass=true;
+          this.offgrassright=true;
         }
         else if ($grass.position().left-450<this.$player.position().left+25) {
           this.offgrass=false;//makes player only able to jump once off the grass
+          this.offgrassleft=false;
+          this.offgrassright=false;
         }
         //grass gravity end
         //jump gravity
@@ -110,14 +173,14 @@ $(() => {
 
   }
   // end player class
-//ai class
+  //ai class
   class AI extends Player {
     constructor() {
       super();
-      this.ai=true;
+      this.ai=true;//make the ai a player that is an ai
     }
   }
-//end ai class
+  //end ai class
   let human = new Player();
   let ai = new AI();
 
