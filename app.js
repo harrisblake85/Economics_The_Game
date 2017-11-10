@@ -6,6 +6,8 @@ $(() => {
   $container.append($sky);
   let $grass = $("<div>").addClass("grass");
   let $body = $("body");
+  let url1 = "http://www.clker.com/cliparts/h/D/5/O/s/2/stick-figure-black.svg";
+
   class Player {
     constructor() {
       this.ai=false;
@@ -22,6 +24,7 @@ $(() => {
       this.x=0;
       this.y=0;
       this.$player = $("<div>").addClass("player");
+      this.$player.css("url",url1);
       //begin game interval
       // game interval determines what moves a player/ai takes
       this.game =setInterval(() => {
