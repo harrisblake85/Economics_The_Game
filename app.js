@@ -6,10 +6,20 @@ $(() => {
   $container.append($sky);
   let $grass = $("<div>").addClass("grass");
   let $body = $("body");
-  let url1 = "http://www.clker.com/cliparts/h/D/5/O/s/2/stick-figure-black.svg";
+  let players=[];
+
+  class Money {
+    constructor() {
+
+    }
+  }
 
   class Player {
     constructor() {
+      this.src1 = "images/tophat/tophat.png";
+      this.src2 = "images/tophat/tophat_jump.png";
+      this.src3 = "images/tophat/tophat_fall.png";
+
       this.ai=false;
       this.jumping = false;
       this.falling = false;
@@ -23,11 +33,25 @@ $(() => {
       this.choice=2;
       this.x=0;
       this.y=0;
-      this.$player = $("<div>").addClass("player");
-      this.$player.css("url",url1);
+      this.$player = $("<img>").addClass("player");
+      this.$player.attr("src",this.src3);
       //begin game interval
       // game interval determines what moves a player/ai takes
       this.game =setInterval(() => {
+
+        //grow
+
+        //end grow
+
+        // if (offgrass==false){
+        //   this.$player.attr("src",this.src1);
+        // }
+        // if (jumping){
+        //   this.$player.attr("src",this.src2);
+        // }
+        // if (falling) {
+        //   this.$player.attr("src",this.src3);
+        // }
         //ai section, only active if this.ai=true
         if (this.ai) {
           //ai self preservation, ai still may fall due to .stop()
@@ -91,33 +115,33 @@ $(() => {
         //wpress
         if (this.wpress) {
           if (this.falling) {
-
           }
           else {
             this.jumping = true;
+
           }
         }
         //end wpress
         //grass gravity player falls if they jump off the grass
         //fall left
-        if ($grass.position().left-450>this.$player.position().left+25) {
+        if ($grass.position().left-450>this.$player.position().left+this.$player.width()/2) {
           this.playerdown();
           this.offgrassleft=true;
         }
         //fall right
-        if ($grass.position().left+450<this.$player.position().left-25) {
+        if ($grass.position().left+450<this.$player.position().left-this.$player.width()/2) {
           this.playerdown();
 
           this.offgrassright=true;
         }
-        else if ($grass.position().left-450<this.$player.position().left+25) {
+        else if ($grass.position().left-450<this.$player.position().left+this.$player.width()/2) {
           this.offgrass=false;//makes player only able to jump once off the grass
           this.offgrassleft=false;
           this.offgrassright=false;
         }
         //grass gravity end
         //jump gravity
-        if (this.$player.position().top+100!=$grass.position().top) {
+        if (this.$player.position().top+this.$player.height()!=$grass.position().top) {
           if (this.jumping) {
           }
           else {
@@ -133,7 +157,7 @@ $(() => {
             this.x=0;
           }
         }
-        if (this.$player.position().top+100==$grass.position().top) {
+        if (this.$player.position().top+this.$player.height()==$grass.position().top) {
           if (this.offgrass) {
           }
           else {
@@ -149,9 +173,11 @@ $(() => {
           this.playerright();
         }
         //end left and right
+
       }, .5);
       //end of game interval
     }
+    //end of constructor for player
     playerup(){
       $(this.$player).animate({
         'top' : "-=5px" //movesup
@@ -180,6 +206,10 @@ $(() => {
   class AI extends Player {
     constructor() {
       super();
+      this.src1 = "images/cowboyhat/cowboyhat.png";
+      this.src2 = "images/cowboyhat/cowboyhat_jump.png";
+      this.src3 = "images/cowboyhat/cowboyhat_fall.png";
+      this.$player.attr("src",this.src3);
       this.ai=true;//make the ai a player that is an ai
     }
   }
@@ -187,10 +217,17 @@ $(() => {
   let human = new Player();
   let ai = new AI();
 
-
   $container.append(human.$player);
   $container.append(ai.$player);
   $container.append($grass);
+
+  human.$player.on("click",() => {
+    console.log(human.$player.height());
+    human.$player.width( human.$player.width()*1.02);
+    human.$player.width(Math.floor( human.$player.width()));
+    human.$player.height( human.$player.height()*1.01);
+    human.$player.height(Math.floor( human.$player.height()));
+  })
 
   $body.keypress(() => {
     human.$player.stop();
