@@ -1,0 +1,30 @@
+.container{
+  width: 1100px;
+  height: 1100px;
+}
+
+.platform{
+  width: 1100px;
+  height: 50px;
+
+}
+.fall{
+  display: inline-block;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+}
+
+.grass{
+  display: inline-block;
+  margin: auto;
+  width: 1000px;
+  height: 50px;
+  background-color: green;
+}
+.player{
+  width: 50px;
+  height: 100px;
+  margin:auto;
+  background-color: blue;
+}
