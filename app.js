@@ -6,12 +6,15 @@ $(() => {
   $container.append($sky);
   let $grass = $("<div>").addClass("grass");
   let $body = $("body");
-  let notjumping = true;
+  let jumping = false;
+  let falling = false;
   let offgrass = false;
   let wpress=false;
   let apress=false;
   let spress=false;
   let dpress=false;
+  let x =0;
+
 
   let $player = $("<div>").addClass("player");
 
@@ -19,18 +22,21 @@ $(() => {
   $container.append($grass);
 
   const playerup =() => {
-    let x =0;
-    if (notjumping) {
-      notjumping=false;
-      for (let i = 0; i < 10; i++) {
-        $player.animate({
-          'top' : "-=20px" //movesup
-        },0);
 
-        $player.animate({
-          'top' : "-=20px" //movesup
-        },0).delay(10);
+
+    if (falling) {
+      x=0;
+    }
+    else {
+      jumping=true;
+    }
+    if (jumping) {
+      x++;
+      if (x>30) {
+        jumping=false;
+        falling=true;
       }
+
     }
   }
 
@@ -42,14 +48,14 @@ $(() => {
 
   const playerleft =() => {
     $player.animate({
-      'left' : "-=1px" //movesleft
+      'left' : "-=3px" //movesleft
     },0);
 
   }
 
   const playerright =() => {
     $player.animate({
-      'left' : "+=1px" //movesright
+      'left' : "+=3px" //movesright
     },0);
   }
 
@@ -111,15 +117,24 @@ $(() => {
     console.log("grass: "+$grass.position().top);
     console.log("playe: "+$player.position().top);
     if ($player.position().top+100!=$grass.position().top) {
-      playerdown();
-
+      if (jumping) {
+      }
+      else {
+        playerdown();
+      }
+    }
+    if (jumping) {
+      playerup();
+      $player.animate({
+        'top' : "-=30px" //movesup
+      },0);
     }
     if ($player.position().top+100==$grass.position().top) {
       if (offgrass) {
 
       }
       else {
-        notjumping=true;
+        falling=false;
       }
 
     }
