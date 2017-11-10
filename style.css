@@ -1,30 +1,38 @@
 .container{
   width: 1100px;
   height: 1100px;
-}
-
-.platform{
-  width: 1100px;
-  height: 50px;
-
-}
-.fall{
-  display: inline-block;
   margin: auto;
-  width: 50px;
-  height: 50px;
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid black;
+  background-color: skyblue;
 }
+
+
+.sky{
+  width: 1100px;
+  height: 500px;
+  margin-top:auto;
+  background-color: skyblue;
+
+
+}
+
+
 
 .grass{
-  display: inline-block;
+  display: block;
   margin: auto;
-  width: 1000px;
+  width: 900px;
   height: 50px;
   background-color: green;
+  position: relative;
 }
 .player{
   width: 50px;
   height: 100px;
+
+  position: relative;
   margin:auto;
   background-color: blue;
 }
