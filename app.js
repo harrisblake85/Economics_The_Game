@@ -74,7 +74,7 @@ $(() => {
             //end ai move right
             //ai move left
             if (this.choices[this.choice]=="left") {
-              if (this.offgrassright) {
+              if (this.offgrassleft) {
               }
               else {
                 this.apress=true;
