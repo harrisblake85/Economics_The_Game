@@ -4,7 +4,7 @@ $(() => {
   let $container = $(".container");
   let $sky = $("<div>").addClass("sky");
   $container.append($sky);
-  let $grass = $("<div>").addClass("grass");
+  let $grass = $("<img>").addClass("grass").attr("src","images/grass.jpg");
   let $body = $("body");
   let players=[];
 

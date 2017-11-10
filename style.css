@@ -22,6 +22,7 @@
   width: 900px;
   height: 50px;
   background-color: green;
+  src:url("images/grass.jpg");
   position: relative;
 }
 .player{
