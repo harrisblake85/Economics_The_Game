@@ -116,7 +116,7 @@ $(() => {
   class AI extends Player {
     constructor() {
       super();
-      this.isai=true;
+      this.ai=true;
     }
   }
 //end ai class
