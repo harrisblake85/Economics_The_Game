@@ -51,8 +51,6 @@ $(() => {
         }
         //grass gravity end
         //jump gravity
-        console.log("grass: "+$grass.position().top);
-        console.log("playe: "+this.$player.position().top);
         if (this.$player.position().top+100!=$grass.position().top) {
           if (this.jumping) {
           }
