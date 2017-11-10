@@ -6,144 +6,163 @@ $(() => {
   $container.append($sky);
   let $grass = $("<div>").addClass("grass");
   let $body = $("body");
-  let jumping = false;
-  let falling = false;
-  let offgrass = false;
-  let wpress=false;
-  let apress=false;
-  let spress=false;
-  let dpress=false;
-  let x =0;
+  class Player {
+    constructor() {
+      this.ai=false;
+      this.jumping = false;
+      this.falling = false;
+      this.offgrass = false;
+      this.wpress=false;
+      this.apress=false;
+      this.spress=false;
+      this.dpress=false;
+      this.x =0;
+      this.$player = $("<div>").addClass("player");
+      //begin game interval
+
+      this.game =setInterval(() => {
+        //if player is an ai
+        if (this.ai) {
+          console.log("Im An AI");
+        }
+        //end ai
+        //wpress
+        if (this.wpress) {
+          if (this.falling) {
+
+          }
+          else {
+            this.jumping = true;
+          }
+        }
+        //end wpress
+        //grass gravity player falls if they jump off the grass
+        if ($grass.position().left-450>this.$player.position().left+25) {
+          this.playerdown();
+          this.offgrass=true;
+        }
+        if ($grass.position().left+450<this.$player.position().left-25) {
+          this.playerdown();
+
+          this.offgrass=true;
+        }
+        else if ($grass.position().left-450<this.$player.position().left+25) {
+          this.offgrass=false;//makes player only able to jump once off the grass
+        }
+        //grass gravity end
+        //jump gravity
+        console.log("grass: "+$grass.position().top);
+        console.log("playe: "+this.$player.position().top);
+        if (this.$player.position().top+100!=$grass.position().top) {
+          if (this.jumping) {
+          }
+          else {
+            this.playerdown();
+          }
+        }
+        if (this.jumping) {
+          this.playerup();
+          this.x++
+          if (this.x>50) {
+            this.falling=true;
+            this.jumping=false;
+            this.x=0;
+          }
+        }
+        if (this.$player.position().top+100==$grass.position().top) {
+          if (this.offgrass) {
+          }
+          else {
+            this.falling=false;
+          }
+        }
+        //jump gravity end
+        //left and right
+        if (this.apress) {
+          this.playerleft();
+        }
+        if (this.dpress) {
+          this.playerright();
+        }
+        //end left and right
+      }, .5);
+      //end of game interval
+    }
+    playerup(){
+      $(this.$player).animate({
+        'top' : "-=5px" //movesup
+      },0);
+    };
+    playerdown(){
+      this.$player.animate({
+        'top' : "+=1px" //movesdown
+      },0);
+    };
+    playerleft(){
+      this.$player.animate({
+        'left' : "-=3px" //movesleft
+      },0);
+
+    };
+    playerright() {
+      this.$player.animate({
+        'left' : "+=3px" //movesright
+      },0);
+    }
+
+  }
+  // end player class
+//ai class
+  class AI extends Player {
+    constructor() {
+      super();
+      this.isai=true;
+    }
+  }
+//end ai class
+  let human = new Player();
+  let ai = new AI();
 
 
-  let $player = $("<div>").addClass("player");
-
-  $container.append($player);
+  $container.append(human.$player);
+  $container.append(ai.$player);
   $container.append($grass);
 
-  const playerup =() => {
-    $player.animate({
-      'top' : "-=5px" //movesup
-    },0);
-  }
-
-  const playerdown =() => {
-    $player.animate({
-      'top' : "+=1px" //movesdown
-    },0);
-  }
-
-  const playerleft =() => {
-    $player.animate({
-      'left' : "-=3px" //movesleft
-    },0);
-
-  }
-
-  const playerright =() => {
-    $player.animate({
-      'left' : "+=3px" //movesright
-    },0);
-  }
-
-
-
   $body.keypress(() => {
-    $player.stop();
+    human.$player.stop();
 
     if (event.key=="w") {
-      wpress=true;
+      human.wpress=true;
     }
     if (event.key=="a") {
-      apress=true;
+      human.apress=true;
     }
     if (event.key=="s") {
-      spress=true;
+      human.spress=true;
     }
     if (event.key=="d") {
-      dpress=true;
+      human.dpress=true;
     }
   });
 
   $body.keyup(() => {
-    $player.stop();
+    human.$player.stop();
 
     if (event.key=="w") {
-      wpress=false;
+      human.wpress=false;
     }
     if (event.key=="a") {
-      apress=false;
+      human.apress=false;
     }
     if (event.key=="s") {
-      spress=false;
+      human.spress=false;
     }
     if (event.key=="d") {
-      dpress=false;
+      human.dpress=false;
     }
   });
 
-  let game =setInterval(() => {
-    if (wpress) {
-      if (falling) {
 
-      }
-      else {
-        jumping = true;
-      }
-
-    }
-    //grass gravity
-    if ($grass.position().left-450>$player.position().left+25) {
-      playerdown();
-      offgrass=true;
-    }
-    if ($grass.position().left+450<$player.position().left-25) {
-      playerdown();
-
-      offgrass=true;
-    }
-    else if ($grass.position().left-450<$player.position().left+25) {
-      offgrass=false;//makes player only able to jump once off the grass
-    }
-    //grass gravity end
-    //jump gravity
-    console.log("grass: "+$grass.position().top);
-    console.log("playe: "+$player.position().top);
-    if ($player.position().top+100!=$grass.position().top) {
-      if (jumping) {
-      }
-      else {
-        playerdown();
-      }
-    }
-    if (jumping) {
-      playerup();
-      x++
-      if (x>50) {
-        falling=true;
-        jumping=false;
-        x=0;
-      }
-    }
-    if ($player.position().top+100==$grass.position().top) {
-      if (offgrass) {
-
-      }
-      else {
-        falling=false;
-      }
-
-    }
-
-    //jump gravity end
-    if (apress) {
-      playerleft();
-    }
-    if (dpress) {
-      playerright();
-    }
-
-  }, .5);
 
 
 
