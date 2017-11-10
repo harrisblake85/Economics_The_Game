@@ -22,27 +22,14 @@ $(() => {
   $container.append($grass);
 
   const playerup =() => {
-
-
-    if (falling) {
-      x=0;
-    }
-    else {
-      jumping=true;
-    }
-    if (jumping) {
-      x++;
-      if (x>30) {
-        jumping=false;
-        falling=true;
-      }
-
-    }
+    $player.animate({
+      'top' : "-=5px" //movesup
+    },0);
   }
 
   const playerdown =() => {
     $player.animate({
-      'top' : "+=2px" //movesdown
+      'top' : "+=1px" //movesdown
     },0);
   }
 
@@ -97,7 +84,13 @@ $(() => {
 
   let game =setInterval(() => {
     if (wpress) {
-      playerup();
+      if (falling) {
+
+      }
+      else {
+        jumping = true;
+      }
+
     }
     //grass gravity
     if ($grass.position().left-450>$player.position().left+25) {
@@ -125,9 +118,12 @@ $(() => {
     }
     if (jumping) {
       playerup();
-      $player.animate({
-        'top' : "-=30px" //movesup
-      },0);
+      x++
+      if (x>50) {
+        falling=true;
+        jumping=false;
+        x=0;
+      }
     }
     if ($player.position().top+100==$grass.position().top) {
       if (offgrass) {
