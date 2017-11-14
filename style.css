@@ -17,6 +17,8 @@
   height: 500px;
   margin-top:auto;
   background-color: skyblue;
+  text-align: center;
+  font-size: 40px;
   position: absolute;
   z-index: -1;
 }
