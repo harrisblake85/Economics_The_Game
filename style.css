@@ -8,7 +8,7 @@
   background-color: skyblue;
   position: relative;
 
-  /*z-index: -1;*/
+  z-index: -1;
 }
 
 
@@ -18,7 +18,7 @@
   margin-top:auto;
   background-color: skyblue;
   position: absolute;
-  /*z-index: -1;*/
+  z-index: -1;
 }
 
 .grass{

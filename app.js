@@ -7,6 +7,7 @@ $(() => {
   let $grass = $("<img>").addClass("grass").attr("src","images/grass.jpg");
   let $body = $("body");
   let players=[];
+  let money=[];
 
 
 
@@ -15,7 +16,7 @@ $(() => {
       this.src1 = "images/tophat/tophat.png";
       this.src2 = "images/tophat/tophat_jump.png";
       this.src3 = "images/tophat/tophat_fall.png";
-
+      this.score = 0;
       this.ai=false;
       this.jumping = false;
       this.falling = false;
@@ -106,17 +107,19 @@ $(() => {
         //end wpress
         //grass gravity player falls if they jump off the grass
         //fall left
-        if ($grass.position().left>this.$player.position().left+this.$player.width()/2) {
+        console.log($grass.position().left);
+
+        if ($grass.position().left-this.$player.width()>this.$player.position().left) {
           this.playerdown();
           this.offgrassleft=true;
         }
         //fall right
-        if ($grass.position().left+450<this.$player.position().left-this.$player.width()/2) {
+        if ($grass.position().left+897<this.$player.position().left) {
           this.playerdown();
 
           this.offgrassright=true;
         }
-        else if ($grass.position().left-450<this.$player.position().left+this.$player.width()/2) {
+        else if ($grass.position().left-this.$player.width()<this.$player.position().left) {
           this.offgrass=false;//makes player only able to jump once off the grass
           this.offgrassleft=false;
           this.offgrassright=false;
@@ -200,7 +203,7 @@ $(() => {
   class Money extends AI{
     constructor() {
       super();
-      this.src3="https://upload.wikimedia.org/wikipedia/commons/7/7b/Obverse_of_the_series_2009_%24100_Federal_Reserve_Note.jpg";
+      this.src3="images/money.png";
       this.$player.attr("src",this.src3);
       //start money over container, within bounds of grass
       this.px =Math.floor(Math.random()*901);
@@ -208,15 +211,18 @@ $(() => {
       this.$player.css( { left: this.px, top: this.py } ) ;
       this.$player.width(80);
       this.$player.height(40);
+
     }
-    playerup()
-    {
-      //money doesnt jump up
-    }
+    // playerup()
+    // {
+    //   //money doesnt jump up
+    // }
   }
   const makedollar = () => {
       let tempdollar = new Money();
       $container.prepend(tempdollar.$player);
+      money.push(tempdollar);
+
       // tempdollar.$player.css({position:"absolute"});
   }
 
@@ -224,19 +230,39 @@ $(() => {
     constructor() {
       this.rainmoney = setInterval(() => {
         makedollar();
-      },10000)
+      },4000);
+      this.collect = setInterval(() => {
+
+        for (let i = 0; i < money.length; i++) {
+          this.mleft = money[i].$player.position().left;
+          this.mright = money[i].$player.position().left+this.$player.width();
+          this.mtop = money[i].$player.position().top;
+          this.mbottom = money[i].$player.position().top+this.$player.height();
+          for (let i = 0; i < money.length; i++) {
+            this.pleft = player[i].$player.position().left;
+            this.pright = player[i].$player.position().left+this.$player.width();
+            this.ptop = player[i].$player.position().top;
+            this.pbottom = player[i].$player.position().top+this.$player.height();
+            if (true) {
+
+            }
+          }
+        }
+        if (false) {
+          console.log("not yet");
+        }
+      },20)
     }
   }
 
   thisgame = new Game();
-
-
   human = new Player();
   ai = new AI();
   ai2 = new AI();
-  $container.append(human.$player);
-  $container.append(ai.$player);
-  $container.append(ai2.$player);
+  players = [human,ai,ai2];
+  for (let i = 0; i < players.length; i++) {
+    $container.append(players[i].$player);
+  }
   $container.append($grass);
 
 
