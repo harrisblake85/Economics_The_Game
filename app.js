@@ -10,7 +10,9 @@ $(() => {
 
   class Money {
     constructor() {
-
+      this.$money=$("<img>").addClass("money");
+      this.px= Math.floor(Math.random()*900);
+      this.py= Math.floor(Math.random()*500);
     }
   }
 
