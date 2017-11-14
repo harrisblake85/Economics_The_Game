@@ -3,18 +3,12 @@ $(() => {
   //start window onload
   let $container = $(".container");
   let $sky = $("<div>").addClass("sky");
-  $container.append($sky);
+
   let $grass = $("<img>").addClass("grass").attr("src","images/grass.jpg");
   let $body = $("body");
   let players=[];
 
-  class Money {
-    constructor() {
-      this.$money=$("<img>").addClass("money");
-      this.px= Math.floor(Math.random()*900);
-      this.py= Math.floor(Math.random()*500);
-    }
-  }
+
 
   class Player {
     constructor() {
@@ -216,12 +210,46 @@ $(() => {
     }
   }
   //end ai class
+  let x = 90;
+  let y = 120;
+  class Money extends AI{
+    constructor() {
+      super();
+      // this.$player=$("<img>").addClass("money");
+      this.src3="https://upload.wikimedia.org/wikipedia/commons/7/7b/Obverse_of_the_series_2009_%24100_Federal_Reserve_Note.jpg";
+      this.$player.attr("src",this.src3);
+      this.px= Math.floor(Math.random()*900);
+      this.py= Math.floor(Math.random()*500);
+
+      this.$player.css( { left: x, top: y } ) ;
+      this.$player.width(80);
+      this.$player.height(40);
+    }
+    playerup()
+    {
+
+    }
+  }
+  const makedollars = () => {
+    let tempdollar = new Money();
+    // tempdollar.$player.attr("position","absolute");
+    // tempdollar.$player.css("margin","0");
+    tempdollar.left="400px";
+    $container.append(tempdollar.$player);
+
+  }
+
+  makedollars();
+  $container.append($sky);
   let human = new Player();
   let ai = new AI();
+  let ai2 = new AI();
 
   $container.append(human.$player);
   $container.append(ai.$player);
+  $container.append(ai2.$player);
   $container.append($grass);
+
 
   human.$player.on("click",() => {
     console.log(human.$player.height());
