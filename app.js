@@ -3,7 +3,7 @@ $(() => {
   //start window onload
   let $container = $(".container");
   let $sky = $("<div>").addClass("sky");
-
+  $container.append($sky);
   let $grass = $("<img>").addClass("grass").attr("src","images/grass.jpg");
   let $body = $("body");
   let players=[];
@@ -34,20 +34,6 @@ $(() => {
       //begin game interval
       // game interval determines what moves a player/ai takes
       this.game =setInterval(() => {
-
-        //grow
-
-        //end grow
-
-        // if (offgrass==false){
-        //   this.$player.attr("src",this.src1);
-        // }
-        // if (jumping){
-        //   this.$player.attr("src",this.src2);
-        // }
-        // if (falling) {
-        //   this.$player.attr("src",this.src3);
-        // }
         //ai section, only active if this.ai=true
         if (this.ai) {
           //ai self preservation, ai still may fall due to .stop()
@@ -120,7 +106,7 @@ $(() => {
         //end wpress
         //grass gravity player falls if they jump off the grass
         //fall left
-        if ($grass.position().left-450>this.$player.position().left+this.$player.width()/2) {
+        if ($grass.position().left>this.$player.position().left+this.$player.width()/2) {
           this.playerdown();
           this.offgrassleft=true;
         }
@@ -210,45 +196,49 @@ $(() => {
     }
   }
   //end ai class
-  let x = 90;
-  let y = 120;
+
   class Money extends AI{
     constructor() {
       super();
-      // this.$player=$("<img>").addClass("money");
       this.src3="https://upload.wikimedia.org/wikipedia/commons/7/7b/Obverse_of_the_series_2009_%24100_Federal_Reserve_Note.jpg";
       this.$player.attr("src",this.src3);
-      this.px= Math.floor(Math.random()*900);
-      this.py= Math.floor(Math.random()*500);
-
-      this.$player.css( { left: x, top: y } ) ;
+      //start money over container, within bounds of grass
+      this.px =Math.floor(Math.random()*901);
+      this.py = -110;
+      this.$player.css( { left: this.px, top: this.py } ) ;
       this.$player.width(80);
       this.$player.height(40);
     }
     playerup()
     {
-
+      //money doesnt jump up
     }
   }
-  const makedollars = () => {
-    let tempdollar = new Money();
-    // tempdollar.$player.attr("position","absolute");
-    // tempdollar.$player.css("margin","0");
-    tempdollar.left="400px";
-    $container.append(tempdollar.$player);
-
+  const makedollar = () => {
+      let tempdollar = new Money();
+      $container.prepend(tempdollar.$player);
+      // tempdollar.$player.css({position:"absolute"});
   }
 
-  makedollars();
-  $container.append($sky);
-  let human = new Player();
-  let ai = new AI();
-  let ai2 = new AI();
+  class Game {
+    constructor() {
+      this.rainmoney = setInterval(() => {
+        makedollar();
+      },10000)
+    }
+  }
 
+  thisgame = new Game();
+
+
+  human = new Player();
+  ai = new AI();
+  ai2 = new AI();
   $container.append(human.$player);
   $container.append(ai.$player);
   $container.append(ai2.$player);
   $container.append($grass);
+
 
 
   human.$player.on("click",() => {
