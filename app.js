@@ -369,15 +369,15 @@ $(() => {
       }
       else {
         if (wasai) {
-          $sky.text(this.playername+" lost!");
+          $sky.text(this.playername+" Lost!");
           console.log("player lost!");
         }
         else if (won) {
-          $sky.text(this.playername+" wins!");
+          $sky.text(this.playername+" Wins!");
           console.log("player wins");
         }
         else {
-          $sky.text(this.playername+" lost because you fell!");
+          $sky.text(this.playername+" Lost because you fell!");
           console.log("player lost by falling");
         }
       }
