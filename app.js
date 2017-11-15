@@ -251,7 +251,7 @@ $(() => {
           //else have the money fall down
           this.moneydown();
         }
-      },0)
+      },10)
     }
     moneydown()
     {
@@ -276,7 +276,7 @@ $(() => {
       //end add players for loop
       this.gameover=false;
       this.rainmoney = setInterval(() => {
-        if (money.length<6) {
+        if (money.length<=6) {
           this.makedollar();
         }
 
