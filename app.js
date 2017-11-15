@@ -270,7 +270,7 @@ $(() => {
   class Game {
     constructor(growrate) {
         //add players in this for loop
-        this.playername="Player";
+        this.playername="The Player";
         this.ainame="AI";
         this.growrate=growrate;
         for (let i = 0; i < players.length; i++) {
@@ -370,15 +370,15 @@ $(() => {
       }
       else {
         if (wasai) {
-          $sky.text("The "+this.playername+" lost!");
+          $sky.text(this.playername+" lost!");
           console.log("player lost!");
         }
         else if (won) {
-          $sky.text("The "+this.playername+" won!");
-          console.log("player won");
+          $sky.text(this.playername+" wins!");
+          console.log("player wins");
         }
         else {
-          $sky.text("The "+this.playername+" lost by falling!");
+          $sky.text(this.playername+" lost by falling!");
           console.log("player lost by falling");
         }
       }
@@ -390,7 +390,7 @@ $(() => {
   class Communism extends Game {
     constructor() {
       super(1.0);
-      this.playername="State";
+      this.playername="The State";
       players[3].$player.animate({
         'left' : "+=450px" //movesright
       },0);
@@ -418,7 +418,7 @@ $(() => {
     constructor() {
       //add a human player and two ai to players array
         super(1.1);
-        this.playername="Unemployed";
+        this.playername="Everyone (but you)";
         for (let i = 0; i < players.length; i++) {
           players[i].ai=false;
         }
