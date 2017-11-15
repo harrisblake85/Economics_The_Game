@@ -1,9 +1,9 @@
 console.log($);
 $(() => {
   //start window onload
-  let thisgame = null;
+  let thisgame = "nogame";
   let $container = $(".container");
-  let $sky = $("<div>").addClass("sky");
+  let $sky = $("<div>"+"Press One of The Buttons To Continue"+"</div>").addClass("sky");
   $container.append($sky);
   let $grass = $("<img>").addClass("grass").attr("src","images/grass.jpg");
   $container.append($grass);
@@ -16,7 +16,6 @@ $(() => {
       this.src1 = "images/tophat/tophat.png";
       this.src2 = "images/tophat/tophat_jump.png";
       this.src3 = "images/tophat/tophat_fall.png";
-      this.score = 0;
       this.won = false;
       this.ai=false;
       this.parachute=false;
@@ -212,7 +211,7 @@ $(() => {
       thisgame.endgame(this.wasai,this.won);
     }
 
-  }
+  };
   // end player class
   //ai class
   class AI extends Player {
@@ -226,6 +225,15 @@ $(() => {
     }
   }
   //end ai class
+  class TheState extends Player{
+    constructor(){
+      super();
+      this.src1 = "images/cowboyhat/cowboyhat.png";
+      this.src2 = "images/cowboyhat/cowboyhat_jump.png";
+      this.src3 = "images/cowboyhat/cowboyhat_fall.png";
+      this.$player.attr("src",this.src3);
+    }
+  }
 
   class Money{
     constructor() {
@@ -254,19 +262,17 @@ $(() => {
         'top' : "+=1px" //movesdown
       },0);
     }
-  }
+  };
 
   //add the grass to the container
 
-
+//the game, Capitalism by default
   class Game {
-    constructor() {
-      //add a human player and two ai to players array
-        this.human = new Player();
-        this.ai = new AI();
-        this.ai2 = new AI();
-        players = [this.human,this.ai,this.ai2];
+    constructor(growrate) {
         //add players in this for loop
+        this.playername="player";
+        this.ainame="AI";
+        this.growrate=growrate;
         for (let i = 0; i < players.length; i++) {
           $container.append(players[i].$player);
         }
@@ -304,6 +310,8 @@ $(() => {
               clearInterval(money[i].fall);
               money[i].$money.remove();
               money.splice(i, 1);
+              // i+=1;
+
               //end remove money
 
               //give player a boosts if they collect
@@ -311,7 +319,7 @@ $(() => {
                 players[j].won=true;
               }
               else {
-                for (let i = 0; i < 10; i++) {
+                for (let u = 0; u < 10; u++) {
                   players[j].playerup();
                 }
               }
@@ -333,10 +341,9 @@ $(() => {
     }
     grow(j){
       //if player collected money have them grow and score
-      players[j].score ++;
-      players[j].$player.width( players[j].$player.width()*1.1);
+      players[j].$player.width( players[j].$player.width()*this.growrate);
       players[j].$player.width(Math.floor( players[j].$player.width()));
-      players[j].$player.height( players[j].$player.height()*1.1);
+      players[j].$player.height( players[j].$player.height()*this.growrate);
       players[j].$player.height(Math.floor( players[j].$player.height()));
       //end grow player
     }
@@ -363,40 +370,146 @@ $(() => {
       }
       else {
         if (wasai) {
-          $sky.text("player lost!");
+          $sky.text("The "+this.playername+" lost!");
           console.log("player lost!");
         }
         else if (won) {
-          $sky.text("player won");
+          $sky.text("The "+this.playername+" won!");
           console.log("player won");
         }
         else {
-          $sky.text("player lost by falling");
+          $sky.text("The "+this.playername+" lost by falling!");
           console.log("player lost by falling");
         }
+      }
+      thisgame="nogame";
+    }
+    //end endgame
+  };
+  //Communism
+  class Communism extends Game {
+    constructor() {
+      super(1.0);
+      this.playername="State";
+      players[3].$player.animate({
+        'left' : "+=450px" //movesright
+      },0);
+      for (let i = 0; i < players.length; i++) {
+        $container.append(players[i].$player);
+      }
+    }
+    grow(j){
+      super.grow(j);
+        players[players.length-1].$player.width( players[players.length-1].$player.width()*1.1);
+        players[players.length-1].$player.width(Math.floor( players[players.length-1].$player.width()));
+        players[players.length-1].$player.height( players[players.length-1].$player.height()*1.1);
+        players[players.length-1].$player.height(Math.floor( players[players.length-1].$player.height()));
+        for (let u = 0; u < 10; u++) {
+          players[players.length-1].playerup();
+        };
+      }
+
+
+  }
+  //end Communism
+
+  //Socialism
+  class Socialism extends Game {
+    constructor() {
+      //add a human player and two ai to players array
+        super(1.1);
+        this.playername="Unemployed";
+        for (let i = 0; i < players.length; i++) {
+          players[i].ai=false;
+        }
+        //add players in this for loop
+        for (let i = 0; i < players.length; i++) {
+          $container.append(players[i].$player);
+        }
+        players[2].$player.animate({
+          'left' : "+=850px" //movesright
+        },0);
+        //end add players for loop
+    }
+    grow(j){
+      super.grow(j);
+      for (let i = 1; i < players.length; i++) {
+        players[i].$player.width( players[i].$player.width()*1.1);
+        players[i].$player.width(Math.floor( players[i].$player.width()));
+        players[i].$player.height( players[i].$player.height()*1.1);
+        players[i].$player.height(Math.floor( players[i].$player.height()));
+
+        for (let u = 0; u < 10; u++) {
+          players[i].playerup();
+        };
       }
 
     }
   }
+  //end Socialism
+//button handlers for new games
+$clearbutton= $(".clear");
+$clearbutton.click(() => {
+  if (thisgame!="nogame") {
+    thisgame.endgame();
+  }
 
-  thisgame = new Game();
+  $sky.text("The Game");
+})
+$capbutton= $(".game1");
+$capbutton.click(() => {
+  if (thisgame!="nogame") {
+    thisgame.endgame();
+  }
+    players=[new Player(),new AI(),new AI()];
+    thisgame=new Game(1.1);
+    $sky.text("Capitalism The Game");
+})
+$combutton= $(".game2");
+$combutton.click(() => {
+  if (thisgame!="nogame") {
+    thisgame.endgame();
+  }
+    players=[new Player(),new AI(),new AI(),new TheState()];
+    thisgame=new Communism();
+    $sky.text("Communism The Game");
+
+
+})
+$socbutton= $(".game3");
+$socbutton.click(() => {
+  if (thisgame!="nogame") {
+    thisgame.endgame();
+  }
+    players=[new Player(),new AI(),new AI()];
+    thisgame=new Socialism();
+    $sky.text("Socialism The Game");
+
+})
 
 //event handlers for human player movement
-  $body.keypress(() => {
-    players[0].$player.stop();
 
-    if (event.key=="w") {
-      players[0].wpress=true;
+  $body.keypress(() => {
+    if (thisgame!="nogame") {
+      players[0].$player.stop();
+
+      if (event.key=="w") {
+        players[0].wpress=true;
+      }
+      if (event.key=="a") {
+        players[0].apress=true;
+      }
+      if (event.key=="d") {
+        players[0].dpress=true;
+      }
     }
-    if (event.key=="a") {
-      players[0].apress=true;
-    }
-    if (event.key=="d") {
-      players[0].dpress=true;
-    }
+
   });
 
   $body.keyup(() => {
+    if (thisgame!="nogame") {
+
+    }
     players[0].$player.stop();
 
     if (event.key=="w") {
@@ -417,6 +530,11 @@ $(() => {
 
 
 
+
+
+
+
+
   //
 
 
@@ -424,4 +542,4 @@ $(() => {
 
 
   //end window onload
-})
+});
