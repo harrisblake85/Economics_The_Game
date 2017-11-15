@@ -270,7 +270,7 @@ $(() => {
   class Game {
     constructor(growrate) {
         //add players in this for loop
-        this.playername="player";
+        this.playername="Player";
         this.ainame="AI";
         this.growrate=growrate;
         for (let i = 0; i < players.length; i++) {

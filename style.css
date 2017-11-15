@@ -18,6 +18,8 @@
   position: absolute;
   z-index: -4;
   font-family: cursive;
+  color: white;
+  text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
 }
 
 .grass{
@@ -52,13 +54,15 @@
 button{
   height:80px;
   width:150px;
+  margin: 1px;
   box-sizing: border-box;
-  color:green;
+  color:lightgreen;
   font-size: 25px;
   font-family: cursive;
   z-index: 10;
-  background-color: skyblue;
-  border: 2px solid skyblue;
+  background-color: Transparent;
+  border: 2px solid black;
+  cursor: pointer;
 
 
 }
