@@ -13,8 +13,8 @@ $(() => {
 
   class Player {
     constructor() {
-      this.src1 = "images/tophat/tophat.png";
-      this.src2 = "images/tophat/tophat_jump.png";
+      this.src1 = "images/tophat/tophat_fall_gold.png";
+
       this.src3 = "images/tophat/tophat_fall.png";
       this.won = false;
       this.ai=false;
@@ -165,7 +165,7 @@ $(() => {
 
         //jump gravity end
         //if player falls out of bounds
-        if (this.$player.position().top>1100)
+        if (this.$player.position().top>660)
         {
           this.killplayer();
         }
@@ -217,8 +217,8 @@ $(() => {
   class AI extends Player {
     constructor() {
       super();
-      this.src1 = "images/cowboyhat/cowboyhat.png";
-      this.src2 = "images/cowboyhat/cowboyhat_jump.png";
+      this.src1 = "images/cowboyhat/cowboyhat_fall_gold.png";
+
       this.src3 = "images/cowboyhat/cowboyhat_fall.png";
       this.$player.attr("src",this.src3);
       this.ai=true;//make the ai a player that is an ai
@@ -228,9 +228,8 @@ $(() => {
   class TheState extends Player{
     constructor(){
       super();
-      this.src1 = "images/cowboyhat/cowboyhat.png";
-      this.src2 = "images/cowboyhat/cowboyhat_jump.png";
-      this.src3 = "images/cowboyhat/cowboyhat_fall.png";
+      this.src1 = "images/cowboyhat/cowboyhat_fall_gold_com.png";
+      this.src3 = "images/cowboyhat/cowboyhat_jump_com.png";
       this.$player.attr("src",this.src3);
     }
   }
@@ -378,7 +377,7 @@ $(() => {
           console.log("player wins");
         }
         else {
-          $sky.text(this.playername+" lost by falling!");
+          $sky.text(this.playername+" lost because you fell!");
           console.log("player lost by falling");
         }
       }
