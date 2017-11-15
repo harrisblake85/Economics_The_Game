@@ -30,7 +30,7 @@
   src:url("images/grass.jpg");
   margin: auto;
   position: absolute;
-  top:550px;
+  top:650px;
   left: 100px;
 
 }
@@ -40,7 +40,7 @@
   height: 100px;
   margin:auto;
   position: absolute;
-  top:450px;
+  top:550px;
   left: 100px;
 }
 
@@ -70,5 +70,15 @@ button{
 body{
   background-image:url("http://gettingtothapaper.com/wp-content/uploads/2017/02/Sky-Background-49C.jpg");
   z-index: -1;
-
+}
+.logoholder{
+  display:flex;
+  flex-flow: row;
+  float: left;
+  height: 100px;
+  width: 200px;
+}
+.logo{
+  max-width: 100%;
+  height: auto;
 }
