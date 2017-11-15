@@ -377,7 +377,7 @@ $(() => {
           console.log("player wins");
         }
         else {
-          $sky.text(this.playername+" Lost because you fell!");
+          $sky.text(this.playername+" Lost Because You Fell!");
           console.log("player lost by falling");
         }
       }
@@ -417,7 +417,7 @@ $(() => {
     constructor() {
       //add a human player and two ai to players array
         super(1.1);
-        this.playername="Everyone (but you)";
+        this.playername="Everyone (But You)";
         for (let i = 0; i < players.length; i++) {
           players[i].ai=false;
         }
