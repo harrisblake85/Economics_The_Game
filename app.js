@@ -523,23 +523,5 @@ $socbutton.click(() => {
     }
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-  //
-
-
-
-
-
   //end window onload
 });

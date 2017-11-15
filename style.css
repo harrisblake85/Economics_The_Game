@@ -45,3 +45,19 @@
   left: 100px;
   /*background-color: blue;*/
 }
+
+.buttons{
+  display: flex;
+  flex-flow: row;
+  margin: auto;
+  height:110px;
+  width:410px;
+
+}
+button{
+  display: flex;
+  flex-flow: row;
+  height:100px;
+  width:100px;
+  box-sizing: border-box;
+}
