@@ -305,7 +305,9 @@ $(() => {
                 //
                 //if overlapping remove money
                 clearInterval(money[i].fall);
+                delete money[i].fall;
                 money[i].$money.remove();
+                delete money[i].$money;
                 delete money[i];
                 money.splice(i, 1);
 
@@ -349,17 +351,22 @@ $(() => {
       {
         clearInterval(this.collect);
         clearInterval(this.rainmoney);
+        delete this.collect;
+        delete this.rainmoney;
 
         for (let i = 0; i < players.length; i++) {
           clearInterval(players[i].game);
           players[i].$player.remove();
+          delete players[i].$player;
           delete players[i];
         }
         players.length=0;
 
         for (let i = 0; i < money.length; i++) {
           clearInterval(money[i].fall);
+          delete money[i].fall;
           money[i].$money.remove();
+          delete money[i].$money;
           delete money[i];
         }
         money.length=0;
