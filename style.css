@@ -71,7 +71,11 @@ button{
 
 }
 body{
-  background-image:url("http://gettingtothapaper.com/wp-content/uploads/2017/02/Sky-Background-49C.jpg");
+  background: url(images/sky.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
   z-index: -1;
 }
 .logoholder{
