@@ -91,25 +91,25 @@ h1.textlogo{
 }
 
 #modal {
-	background-color: rgba(0,0,0,0.4);
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 101%;
-	width: 101%;
-	z-index: 4;
-	overflow: auto;
-	display: none;
-/*Set this to `none` so that the modal does not show initially on page load.*/
+  background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 101%;
+  width: 101%;
+  z-index: 4;
+  overflow: auto;
+  display: none;
+  /*Set this to `none` so that the modal does not show initially on page load.*/
 }
 
 #modal-textbox {
-	background-color: skyblue;
+  background-color: skyblue;
   padding: 20px;
-	height: 900px;
-	width: 650px;
-	border-radius: 2px;
-	margin: 150px auto;
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  height: 950px;
+  width: 750px;
+  border-radius: 2px;
+  margin: 150px auto;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   font-size: 25px;
 }
