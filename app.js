@@ -238,7 +238,7 @@ $(() => {
       this.$money = $("<img>").addClass("player");
       this.$money.attr("src",this.src3);
       //start money over container, within bounds of grass
-      this.px =Math.floor(Math.random()*897)+3;
+      this.px =Math.floor(Math.random()*897)+10;
       this.py = -110;
       this.$money.css( { left: this.px, top: this.py } ) ;
       this.$money.width(80);
