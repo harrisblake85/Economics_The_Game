@@ -251,12 +251,12 @@ $(() => {
           //else have the money fall down
           this.moneydown();
         }
-      },10)
+      },20)
     }
     moneydown()
     {
       this.$money.animate({
-        'top' : "+=1px" //movesdown
+        'top' : "+=2px" //movesdown
       },0);
     }
   };
