@@ -280,7 +280,7 @@ $(() => {
           this.makedollar();
         }
 
-      },1000);
+      },1500);
       //collect, check if any player is overlapping money
       this.collect = setInterval(() => {
         // for money array
