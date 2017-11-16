@@ -251,12 +251,12 @@ $(() => {
           //else have the money fall down
           this.moneydown();
         }
-      },20)
+      },40)
     }
     moneydown()
     {
       this.$money.animate({
-        'top' : "+=2px" //movesdown
+        'top' : "+=8px" //movesdown
       },0);
     }
   };
@@ -280,7 +280,7 @@ $(() => {
           this.makedollar();
         }
 
-      },1500);
+      },1000);
       //collect, check if any player is overlapping money
       this.collect = setInterval(() => {
         // for money array
@@ -329,7 +329,7 @@ $(() => {
             //end for players array
           }
           //end for money array
-        },10)
+        },40)
         //end collect
       }
       makedollar(){
