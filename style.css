@@ -49,7 +49,8 @@
   flex-flow: row;
   margin: auto;
   height:110px;
-  width:610px;
+  width:760px;
+
 }
 button{
   height:80px;
@@ -67,6 +68,7 @@ button{
   border-radius: 11px;
 
 
+
 }
 body{
   background-image:url("http://gettingtothapaper.com/wp-content/uploads/2017/02/Sky-Background-49C.jpg");
@@ -77,7 +79,7 @@ body{
   flex-flow: row;
   float: left;
 }
-h1{
+h1.textlogo{
   margin-top: 10px;
   font-family: Helvetica,arial,sans-serif;
   color: white;
@@ -85,3 +87,29 @@ h1{
   text-shadow: 4px 4px black;
   -webkit-text-stroke: 2.0px black;
   /*-webkit-text-fill-color: black;*/
+  float: left;
+}
+
+#modal {
+	background-color: rgba(0,0,0,0.4);
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 101%;
+	width: 101%;
+	z-index: 4;
+	overflow: auto;
+	display: none;
+/*Set this to `none` so that the modal does not show initially on page load.*/
+}
+
+#modal-textbox {
+	background-color: skyblue;
+  padding: 20px;
+	height: 900px;
+	width: 650px;
+	border-radius: 2px;
+	margin: 150px auto;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  font-size: 25px;
+}
